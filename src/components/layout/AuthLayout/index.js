@@ -1,27 +1,25 @@
-import React from 'react'
-import Side from './Side'
-// import Cover from './Cover'
-// import Simple from './Simple'
-import View from 'views'
-import { useSelector } from 'react-redux'
-import { LAYOUT_TYPE_BLANK } from 'constants/theme.constant'
+import React from "react";
+import { LAYOUT_TYPE_BLANK } from "constants/theme.constant";
+import { useSelector } from "react-redux";
+import View from "views";
+import Side from "./Side";
 
-const AuthLayout = props => {
+const AuthLayout = (props) => {
+  const layoutType = useSelector((state) => state.theme.layout.type);
+  console.log(layoutType);
+  return (
+    <div className="app-layout-blank flex flex-auto flex-col justify-center h-[100vh] bg-white">
+      {layoutType === LAYOUT_TYPE_BLANK ? (
+        <div className="flex flex-col items-center">
+          <View {...props} />
+        </div>
+      ) : (
+        <Side>
+          <View {...props} />
+        </Side>
+      )}
+    </div>
+  );
+};
 
-	const layoutType = useSelector((state) => state.theme.layout.type)
-
-	return (
-		<div className="app-layout-blank flex flex-auto flex-col h-[100vh]">
-			{
-				layoutType === LAYOUT_TYPE_BLANK ? 
-				<View {...props}/> 
-				: 
-				<Side>
-					<View {...props}/>
-				</Side>
-			}
-		</div>
-	)
-}
-
-export default AuthLayout
+export default AuthLayout;
